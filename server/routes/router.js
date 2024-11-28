@@ -104,6 +104,7 @@ route.post("/editEntry/:id", async (req, res) => {
 
 // Route for deleting an entry
 route.delete("/deleteEntry/:id", async (req, res) => {
+    
     const { id } = req.params;  // Extract ID from request parameters
     
         // Try to find the entry by its ID
