@@ -64,13 +64,44 @@ route.post("/createEntry", async (req, res) => {
 // Currently this just logs the entry to be edited
 route.get("/editEntry/:id", async (req, res) => {
     const entry = await Entry.findById(req.params.id);
+   
     console.log(entry);
-    res.send(entry);
+    res.render("editEntry", {entry, habits: habitsOfMind})
+    
+    
 });
+
 route.post("/editEntry/:id", async (req, res) => {
-    const entry = await Entry.findById(req.params.id);
-    entry.content = request.body.content;
+    const { content, habit } = req.body;  // Extract content and habit from request body
+    const id  = req.params.id;  // Get the id from the URL parameter
+
+        // Find the entry by its id
+        const entry = await Entry.findById(id);
+
+
+        // Update the entry fields
+        entry.content = content;
+        entry.habit = habit;
+
+        // Save the updated entry
+        await entry.save();
+
+        
+           // Send this new entry to all connected clients
+        emitNewEntry({
+            id: entry._id,
+            date: entry.date.toLocaleDateString(),
+            habit: entry.habit,
+            content: entry.content.slice(0, 20) + "...",
+        });
+
+
+        // Send a successful response with the updated entry data
+        res.status(200).json({ message: "Entry updated successfully", entry });
+        
+     
 });
+
 
 // Delegate all authentication to the auth.js router
 route.use("/auth", require("./auth"));
