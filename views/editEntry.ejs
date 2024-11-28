@@ -25,9 +25,29 @@
             </label>
 
             <input type="submit" class="submit" value="Submit" />
+            <p></p> <p></p>
+            
+
         </form>
+    </div>
+    
+    <style>
+        /* Style for the button to fix it at the bottom */
+        .delete-button {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            color: white;
+            padding: 10px;
+            text-align: center;
+            font-size: 16px;
+        }
+    </style>
+    <div class="delete-button">
+        <button type="button" id="del-btn"  value="<%= entry._id %>">Delete Entry</button>
     </div>
 </main>
 <!-- End of Main Site -->
-
+<script src="/js/deleteEntry.js"></script>
 <script src="/js/editEntry.js"></script>

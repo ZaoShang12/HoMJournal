@@ -102,6 +102,22 @@ route.post("/editEntry/:id", async (req, res) => {
      
 });
 
+// Route for deleting an entry
+route.delete("/deleteEntry/:id", async (req, res) => {
+    const { id } = req.params;  // Extract ID from request parameters
+    
+        // Try to find the entry by its ID
+        const entry = await Entry.findById(id);
+        
+
+        await entry.deleteOne();  
+
+        // Send success response
+        res.status(200).json({ message: "Entry deleted successfully" });
+    
+});
+
+
 
 // Delegate all authentication to the auth.js router
 route.use("/auth", require("./auth"));
