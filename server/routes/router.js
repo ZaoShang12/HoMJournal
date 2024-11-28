@@ -15,7 +15,7 @@ route.get("/", async (req, res) => {
     console.log("Path Requested: "+req.path);
 
     // The await keyword pauses the function until the line is done
-    const entries = await Entry.find();
+    const entries = await Entry.find().sort({ date: -1 }); // gets the entries by date from most recent to least recent (2024, 2023, 2022, etc)
     
     // Convert MongoDB objects to objects formatted for EJS
     const formattedEntries = entries.map((entry) => {
