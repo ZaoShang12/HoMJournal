@@ -14,8 +14,17 @@ route.get("/", async (req, res) => {
     // You can use console.log to test if functions are being called
     console.log("Path Requested: "+req.path);
 
+    const habitFilter = req.query.habit;
+    let entries;
+
+    if(habitFilter && habitFilter !== "all"){
+         entries = await Entry.find({ habit: habitFilter }).sort({ date: -1 });
+    }
+    else{
+        entries = await Entry.find().sort({ date: -1 });
+    }
     // The await keyword pauses the function until the line is done
-    const entries = await Entry.find().sort({ date: -1 }); // gets the entries by date from most recent to least recent (2024, 2023, 2022, etc)
+     // gets the entries by date from most recent to least recent (2024, 2023, 2022, etc)
     
     // Convert MongoDB objects to objects formatted for EJS
     const formattedEntries = entries.map((entry) => {
@@ -28,8 +37,13 @@ route.get("/", async (req, res) => {
     });
 
     // The res parameter references the HTTP response object
-    res.render("index", {entries: formattedEntries});
+    res.render("index", {
+        entries: formattedEntries,
+        habits: habitsOfMind,
+        currentHabit: habitFilter || "all",
+    });
 });
+
 
 route.get("/createEntry", (req, res) => {
     // Send the HoM object to the createEntry view

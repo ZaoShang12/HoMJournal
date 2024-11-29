@@ -5,7 +5,33 @@
 <main>
     <div class="indexTopBar">
         <img src="img/SE-GitHub-image.png" alt="NCHS Logo" />
-        <h1>Habits of Mind Journal</h1>
+        <h1>Habits of Mind Journal</h1> 
+
+        <style>
+             .filter-container {
+                padding: 10px 15px;
+                position: sticky;
+                top: 0;
+                z-index: 100;
+
+             }
+        </style>
+
+    <div class="filter-container">
+        <form action="/" method="GET">
+            <label for="habitFilter">Filter by Habit of Mind:</label>
+            <select id="habitFilter" name="habit">
+                <option value="all" <%= currentHabit === "all" ? "selected" : "" %>>All</option>
+                <% for (let habit of habits) { %>
+                    <option value="<%= habit %>" <%= currentHabit === habit ? "selected" : "" %>>
+                        <%= habit %>
+                    </option>
+                <% } %>
+            </select>
+            <button type="submit">Filter</button>
+        </form>
+    </div>
+
         <a href="/createEntry" role="button">Create Entry</a>
     </div>
 
