@@ -16,9 +16,10 @@ route.get("/", async (req, res) => {
 
     const habitFilter = req.query.habit;
     let entries;
-
+    /* filtering entries by type*/
     if(habitFilter && habitFilter !== "all"){
-         entries = await Entry.find({ habit: habitFilter }).sort({ date: -1 });
+         entries = await Entry.find({ habit: habitFilter }).sort({ date: -1 }); /* sorts date by decending order*/
+         /* */
     }
     else{
         entries = await Entry.find().sort({ date: -1 });

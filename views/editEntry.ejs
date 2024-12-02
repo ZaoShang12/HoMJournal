@@ -5,7 +5,7 @@
     <img src="img/SE-GitHub-image.png" alt="NCHS Logo" />
     <h1>Habits of Mind Journal Edit</h1>
     <div>
-        
+        <!-- edit form to save (edit type and content) -->
         <form id="editForm">
             <input type="hidden" id="entryId" value="<%= entry._id %>"> 
             
@@ -26,7 +26,7 @@
             <label>Journal Entry
                 <textarea class="content"><%= entry.content %></textarea>
             </label>
-
+            <!-- submit button-->
             <input type="submit" class="submit" value="Submit" />
             <p></p> <p></p>
             
@@ -47,6 +47,7 @@
             font-size: 16px;
         }
     </style>
+    <!-- delete button -->
     <div class="delete-button">
         <button type="button" id="del-btn"  value="<%= entry._id %>">Delete Entry</button>
     </div>
